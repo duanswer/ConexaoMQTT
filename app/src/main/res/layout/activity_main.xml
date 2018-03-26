@@ -28,12 +28,12 @@
         android:id="@+id/btnsubscribe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/editText5"
         android:layout_alignLeft="@+id/btnsend"
         android:layout_alignStart="@+id/btnsend"
-        android:layout_marginBottom="77dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginBottom="52dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
         android:text="Subscribe" />
 
     <Button
@@ -64,17 +64,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="32dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/button"
+    <EditText
+        android:id="@+id/editText5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/editText2"
-        android:layout_alignEnd="@+id/btnsend"
-        android:layout_alignRight="@+id/btnsend"
-        android:text="Mensagem Recebida" />
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="Topico da Mensagem"
+        android:inputType="textMultiLine" />
 
 </RelativeLayout>

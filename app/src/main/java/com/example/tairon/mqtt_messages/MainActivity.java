@@ -25,7 +25,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MqttCallback {
     private Button btnsub;
     private Button btnsen;
     private final String TAG = "mainActivity";
@@ -36,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
         btnsub = (Button) findViewById(R.id.btnsubscribe);
         btnsen = (Button) findViewById(R.id.btnsend);
         String clientId = MqttClient.generateClientId();
-      final  MqttAndroidClient client =
+        final  MqttAndroidClient client =
                 new MqttAndroidClient(this.getApplicationContext(), "tcp://10.165.213.61:1883",
                         clientId);
+        client.setCallback(this);
 
         try {
             IMqttToken token = client.connect();
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         btnsub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String topic = "foo/bar";
+                String topic = "#";
                 int qos = 1;
                 try {
                     IMqttToken subToken = client.subscribe(topic, qos);
@@ -75,53 +76,6 @@ public class MainActivity extends AppCompatActivity {
                             // The message was published
                             Log.d(TAG, "Sucesso");
 
-
-//                            Context context = getApplicationContext();
-//                            CharSequence text = "Hello toast!";
-//                            int duration = Toast.LENGTH_LONG;
-//
-//                            Toast toast = Toast.makeText(context, text, duration);
-//                            toast.show();
-
-                            //======================CODIGO TOAST  PORTUGUES========
-//                            LayoutInflater layoutInflater = getLayoutInflater();
-//
-//                            int layout = R.layout.activity_main;
-//                            ViewGroup viewGroup = (ViewGroup) findViewById(R.id.activity_mai);
-//                            View view = layoutInflater.inflate(layout, viewGroup);
-//
-//                            TextView tv_texto = (TextView) view.findViewById(R.id.editText2);
-//                            tv_texto.setText("45212");
-//
-//                            Toast toast = new Toast(getApplicationContext());
-//                            toast.setDuration(Toast.LENGTH_LONG);
-//                            toast.setView(view);
-//                            toast.show();
-
-                            //==============================
-
-                          //  CÓDIO TOAST INGLES
-               // ========================================================================
-                            LayoutInflater inflater = getLayoutInflater();
-                            View layout = inflater.inflate(R.layout.activity_main,
-                                    (ViewGroup) findViewById(R.id.activity_mai));
-
-                            TextView text = (TextView) layout.findViewById(R.id.editText2);
-                            text.setText("485214");
-
-
-                          Toast toast = Toast.makeText(MainActivity.this, text.getText(), Toast.LENGTH_LONG);
-                          toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
-                          toast.show();
-
-
-//                            Toast toast = (Toast) new Toast(getApplicationContext());
-//
-//                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                            toast.setDuration(Toast.LENGTH_LONG);
-//                            toast.setView(layout);
-//                            toast.show();
-              //  ==============================================================
 
                         }
 
@@ -139,11 +93,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //=========================================================//==========================================================
+
         btnsen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // Log.d(TAG, "Preparar Mensagem para Envio");
+
                 EditText inputTXT = (EditText) findViewById(R.id.editText3);
                 String topic = inputTXT.getText().toString();
                 String payload = "the payload";
@@ -153,48 +108,61 @@ public class MainActivity extends AppCompatActivity {
                     MqttMessage message = new MqttMessage(encodedPayload);
                     client.publish(topic, message);
                     Log.d(TAG, topic);
+                    Log.d(TAG,"epaaaa"+message);
                     Log.d(TAG, "Mensagem Enviada Com sucesso");
 
                 } catch (UnsupportedEncodingException | MqttException e) {
                     e.printStackTrace();
                 }
-//
             }
         });
 
 
+    }
 
 
-        client.setCallback(new MqttCallback() {
-            @Override
-            public void connectionLost(Throwable cause) {
+
+    @Override
+    public void connectionLost(Throwable cause) {
+        Log.d(TAG, "connectionLost");
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        Log.d(TAG, "messageArrived");
+
+       // Toast.makeText(MainActivity.this, new String(message.getPayload()), Toast.LENGTH_LONG).show();
 
 
-            }
+        TextView text = (TextView) findViewById(R.id.editText2);
+        text.setText(message.toString());
+        Log.d(TAG, ""+ topic);
+        Toast toast = Toast.makeText(MainActivity.this, text.getText(), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
+       // toast.show();
 
-            @Override
-            public void messageArrived(String topic, MqttMessage message) throws Exception {
+        //===================Topico da mensagem=============================
 
-//                LayoutInflater inflater = getLayoutInflater();
-//                View layout = inflater.inflate(R.layout.activity_main,
-//                        (ViewGroup) findViewById(R.id.activity_mai));
-//
-//                TextView text =(TextView) layout.findViewById(R.id.editText2);
-//                text.setText("kjhhhh");
 
-//
-               Toast.makeText(MainActivity.this, new String(message.getPayload()), Toast.LENGTH_LONG).show();
-               Log.d(TAG, message.toString());
-               // Toast.makeText(MainActivity.this, topic, Toast.LENGTH_LONG).show();
+        TextView text2 = (TextView) findViewById(R.id.editText5);
+        text2.setText(topic);
+        Log.d(TAG, ""+ topic);
+        Toast toast1 = Toast.makeText(MainActivity.this, text2.getText(), Toast.LENGTH_LONG);
+        toast1.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
 
-               // Toast.makeText(MainActivity.this, text.getText(), Toast.LENGTH_LONG).show();
 
-            }
 
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken token) {
 
-            }
-        });
+
+
+
+
+
+
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
+        Log.e(TAG, "deliveryComplete:  ");
     }
 }
