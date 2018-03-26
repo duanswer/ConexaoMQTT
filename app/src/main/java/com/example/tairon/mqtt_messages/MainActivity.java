@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             // The message was published
                             Log.d(TAG, "Sucesso");
 
+
 //                            Context context = getApplicationContext();
 //                            CharSequence text = "Hello toast!";
 //                            int duration = Toast.LENGTH_LONG;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 //                            LayoutInflater layoutInflater = getLayoutInflater();
 //
 //                            int layout = R.layout.activity_main;
-//                            ViewGroup viewGroup = (ViewGroup) findViewById(R.id.activity_main);
+//                            ViewGroup viewGroup = (ViewGroup) findViewById(R.id.activity_mai);
 //                            View view = layoutInflater.inflate(layout, viewGroup);
 //
 //                            TextView tv_texto = (TextView) view.findViewById(R.id.editText2);
@@ -101,14 +102,22 @@ public class MainActivity extends AppCompatActivity {
 
                           //  CÓDIO TOAST INGLES
                // ========================================================================
-//                            LayoutInflater inflater = getLayoutInflater();
-//                            View layout = inflater.inflate(R.layout.activity_main,
-//                                    (ViewGroup) findViewById(R.id.activity_main));
-//                            TextView text = (TextView) layout.findViewById(R.id.editText2);
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.activity_main,
+                                    (ViewGroup) findViewById(R.id.activity_mai));
+
+                            TextView text = (TextView) layout.findViewById(R.id.editText2);
+                            text.setText("485214");
+
+
+                          Toast toast = Toast.makeText(MainActivity.this, text.getText(), Toast.LENGTH_LONG);
+                          toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                          toast.show();
+
+
+//                            Toast toast = (Toast) new Toast(getApplicationContext());
 //
-//                            text.setText("485214");
-//                            Toast toast = new Toast(getApplicationContext());
-//                           // toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+//                            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 //                            toast.setDuration(Toast.LENGTH_LONG);
 //                            toast.setView(layout);
 //                            toast.show();
@@ -149,41 +158,36 @@ public class MainActivity extends AppCompatActivity {
                 } catch (UnsupportedEncodingException | MqttException e) {
                     e.printStackTrace();
                 }
-//                CÓDIO TOAST
-//                ========================================================================
-//                LayoutInflater inflater = getLayoutInflater();
-//                View layout = inflater.inflate(R.layout.activity_main,
-//                        (ViewGroup) findViewById(R.id.activity_main));
-//                TextView text = (TextView) layout.findViewById(R.id.editText4);
 //
-//                text.setText("This is a custom toast");
-//                Toast toast = new Toast(getApplicationContext());
-//                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                toast.setDuration(Toast.LENGTH_LONG);
-//                toast.setView(layout);
-//                toast.show();
-//                ==============================================================
             }
         });
 
 
-        //=========================================================//==========================================================
+
+
         client.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) {
+
 
             }
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
+
 //                LayoutInflater inflater = getLayoutInflater();
 //                View layout = inflater.inflate(R.layout.activity_main,
-//                        (ViewGroup) findViewById(R.id.activity_main));
-//                TextView textView = (TextView) layout.findViewById(R.id.editText2);
+//                        (ViewGroup) findViewById(R.id.activity_mai));
+//
+//                TextView text =(TextView) layout.findViewById(R.id.editText2);
+//                text.setText("kjhhhh");
 
+//
                Toast.makeText(MainActivity.this, new String(message.getPayload()), Toast.LENGTH_LONG).show();
+               Log.d(TAG, message.toString());
+               // Toast.makeText(MainActivity.this, topic, Toast.LENGTH_LONG).show();
 
-
+               // Toast.makeText(MainActivity.this, text.getText(), Toast.LENGTH_LONG).show();
 
             }
 

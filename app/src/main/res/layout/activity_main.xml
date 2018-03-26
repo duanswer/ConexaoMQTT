@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/activity_main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mai"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    android:paddingBottom="16dp"
     tools:context=".MainActivity">
-
-
 
 
     <TextView
@@ -30,23 +29,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_marginBottom="64dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_alignLeft="@+id/btnsend"
+        android:layout_alignStart="@+id/btnsend"
+        android:layout_marginBottom="77dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:text="Subscribe" />
 
     <Button
         android:id="@+id/btnsend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignStart="@+id/editText3"
         android:layout_below="@+id/editText3"
         android:layout_marginLeft="17dp"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="19dp"
         android:text="Enviar_Mensagem" />
 
     <EditText
