@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
                             // The message was published
                             Log.d(TAG, "Sucesso");
 
-
                         }
 
                         @Override
@@ -99,16 +98,24 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
             public void onClick(View v) {
                // Log.d(TAG, "Preparar Mensagem para Envio");
 
+                //Mensagem a ser enviada
                 EditText inputTXT = (EditText) findViewById(R.id.editText3);
-                String topic = inputTXT.getText().toString();
+                String mens = inputTXT.getText().toString();
+
+                //Tópico da Mensagem a ser enviada
+                EditText inputtexto = (EditText) findViewById(R.id.editopico);
+                String topico = inputtexto.getText().toString();
+
+
                 String payload = "the payload";
                 byte[] encodedPayload = new byte[0];
+
                 try {
-                    encodedPayload = topic.getBytes("UTF-8");
+                    encodedPayload = mens.getBytes("UTF-8");
                     MqttMessage message = new MqttMessage(encodedPayload);
-                    client.publish(topic, message);
-                    Log.d(TAG, topic);
-                    Log.d(TAG,"epaaaa"+message);
+                    client.publish(topico, message);
+                    Log.d(TAG,"Tópico: "+ topico + ". Mensagem: " + mens);
+                    //Log.d(TAG,"epaaaa "+ topico);
                     Log.d(TAG, "Mensagem Enviada Com sucesso");
 
                 } catch (UnsupportedEncodingException | MqttException e) {
@@ -150,13 +157,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
         Toast toast1 = Toast.makeText(MainActivity.this, text2.getText(), Toast.LENGTH_LONG);
         toast1.setGravity(Gravity.CENTER_HORIZONTAL,0,0);
 
-
-
-
-
-
-
-
+            Log.d(TAG, "" + topic + "" + message.toString());
 
 
     }
